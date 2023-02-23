@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Circles } from  'react-loader-spinner';
 import axios from 'axios';
 
 function Form() {
@@ -8,6 +9,7 @@ function Form() {
   const [numResponse, setNumResponse] = useState(0);
   const [tone, setTone] = useState('');
   const [responseData, setResponseData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,6 +23,7 @@ function Form() {
     
     console.log(data);
     console.log(typeof data.num_responses);
+    setLoading(true);
     axios.post(`https://tmv96hl3i4.execute-api.us-east-1.amazonaws.com/dev/api/v1/content`,data, {
       headers: { }
     })
@@ -29,9 +32,11 @@ function Form() {
         setResponseData(response.data);
         console.log(response.data);
         console.log(setResponseData);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   };
 
@@ -69,9 +74,21 @@ function Form() {
         <br />
         <button type="submit">Submit</button>
       </form>
-      {responseData && ( // <-- only show the response data if it exists
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: '30px' }}>
+          <Circles
+            height="70"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="circles-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        </div>
+      ) : responseData && (
         <div>
-          <p>Response Data:</p>
+          <p>Generated Text:</p>
           <div>{responseData.data.map((result, index) => (
             <p key={index}>{result.text}</p>
           ))}</div>
