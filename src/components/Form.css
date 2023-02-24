@@ -1,0 +1,65 @@
+.form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input:focus,
+  select:focus {
+    outline: none;
+    border: 1px solid #37a6ff;
+  }
+  
+  button {
+    background-color: #37a6ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0d6efd;
+  }
+
+  
+  .generated-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .generated-text p {
+    width: auto; /* adjust the width as needed */
+    text-align: justify;
+    margin: 10px 0; /* add a vertical margin */
+    border-bottom: 1px solid #535554;  
+    padding-bottom: 10px; 
+    color: #464545; 
+  }
+  
+  .generated-text p:last-of-type {
+    border-bottom: none; /* remove border from last paragraph */
+  }
+
+  .form-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }

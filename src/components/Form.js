@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Circles } from  'react-loader-spinner';
 import axios from 'axios';
+import './Form.css';
 
 function Form() {
   const [contentType, setContentType] = useState('');
@@ -10,6 +11,7 @@ function Form() {
   const [tone, setTone] = useState('');
   const [responseData, setResponseData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,52 +30,65 @@ function Form() {
       headers: { }
     })
       .then((response) => {
-        console.log(response);
         setResponseData(response.data);
-        console.log(response.data);
-        console.log(setResponseData);
         setLoading(false);
+        setShowResults(true);
       })
       .catch((error) => {
         console.log(error);
-        setLoading(false);
+        setLoading(false); 
       });
   };
 
+
+  if (showResults) {
+    return (
+      <div className='generated-text'>
+        <h2>Generated Text:</h2>
+        {responseData &&
+          responseData.data.map((result, index) => (
+            <p className="generated-text" key={index}>
+              {result.text}
+            </p>
+          ))}
+      </div>
+    );
+  }
+
   return (
-    <div align="center" >
-      <form onSubmit={handleSubmit}>
-        <label>
-          Content Type:
-          <select value={contentType} onChange={(event) => setContentType(event.target.value)}>
-            <option value="">Please select an option</option>
-            <option value="blog">Blog</option>
-            <option value="article">Article</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Topic:
-          <input type="text" value={topic} onChange={(event) => setTopic(event.target.value)} />
-        </label>
-        <br />
-        <label>
-          Audience: 
-          <input type="text" value={audience} onChange={(event) => setAudience(event.target.value)} />
-        </label>
-        <br />
-        <label>
-          Number of Responses:
-          <input type="number" min="0" max="3" value={numResponse} onChange={(event) => setNumResponse(event.target.value)} />
-        </label>
-        <br />
-        <label>
-          Tone:
-          <input type="text" value={tone} onChange={(event) => setTone(event.target.value)} />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <div className="form-header">AI Text Generator</div>
+        <label htmlFor="content-type">Content Type:</label>
+        <select id="content-type" name="content-type" value={contentType} onChange={(e) => setContentType(e.target.value)}>
+          <option value="">Select an option</option>
+          <option value="blog">Blog</option>
+          <option value="article">Article</option>
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="topic">Topic:</label>
+        <input type="text" id="topic" name="topic" value={topic} onChange={(e) => setTopic(e.target.value)} required />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="audience">Audience:</label>
+        <input type="text" id="audience" name="audience" value={audience} onChange={(e) => setAudience(e.target.value)} required />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="num-responses">Number of Responses:</label>
+        <input type="number" id="num-responses" name="num-responses" value={numResponse} onChange={(e) => setNumResponse(e.target.value)} max="3" min="0" required />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="tone">Tone:</label>
+        <input type="text" id="tone" name="tone" value={tone} onChange={(e) => setTone(e.target.value)} required />
+      </div>
+
+      <button type="submit">Submit</button>
+
       {loading ? (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: '30px' }}>
           <Circles
@@ -94,8 +109,8 @@ function Form() {
           ))}</div>
         </div>
       )}
-    </div>
+    </form>
   );
-}
+          }
 
 export default Form;

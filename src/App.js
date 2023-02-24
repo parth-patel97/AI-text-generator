@@ -1,15 +1,14 @@
-import Form from "./components/Form"
+import Form from "./components/Form";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <div>
-        <div align="center" >My Form</div>
+      <div className="form-container">
         <Form />
-        
       </div>
     </div>
-    
+
   );
 }
 
