@@ -23,8 +23,6 @@ function Form() {
       tone,
     };
     
-    console.log(data);
-    console.log(typeof data.num_responses);
     setLoading(true);
     axios.post(`https://tmv96hl3i4.execute-api.us-east-1.amazonaws.com/dev/api/v1/content`,data, {
       headers: { }
@@ -84,7 +82,17 @@ function Form() {
 
       <div className="form-group">
         <label htmlFor="tone">Tone:</label>
-        <input type="text" id="tone" name="tone" value={tone} onChange={(e) => setTone(e.target.value)} required />
+        <select id="tone" name="tone" value={tone} onChange={(e) => setTone(e.target.value)}>
+          <option value="">Select an option</option>
+          <option value="formal">Formal</option>
+          <option value="informal">Informal</option>
+          <option value="humorous">Humorous</option>
+          <option value="authoritative">Authoritative</option>
+          <option value="opinionated">Opinionated</option>
+          <option value="conversational">Conversational</option>
+          <option value="instructional">Instructional</option>
+          <option value="educational">Educational</option>
+        </select>
       </div>
 
       <button type="submit">Submit</button>
