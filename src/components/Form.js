@@ -45,9 +45,14 @@ function Form() {
         <h2>Generated Text:</h2>
         {responseData &&
           responseData.data.map((result, index) => (
-            <p className="generated-text" key={index}>
-              {result.text}
-            </p>
+            <p key={index}>
+    {result.text.split('\n').map((line, i) => (
+      <span key={i}>
+        {line}
+        <br />
+      </span>
+    ))}
+  </p>
           ))}
       </div>
     );
