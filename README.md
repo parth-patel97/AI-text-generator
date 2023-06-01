@@ -1,1 +1,1 @@
-# AI-text-generator
+# AI Blog Generator
